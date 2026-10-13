@@ -200,6 +200,7 @@ const footerHTML = `
                 <li><a href="index.html">Home</a></li>
                 <li><a href="shortvos.html">All Movies & Series</a></li>
                 <li><a href="bonus.html" class="bonus-link-btn"><i class="fa-solid fa-star"></i> BONUS</a></li>
+ 
             </ul>
         </div>
 
