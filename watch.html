@@ -352,9 +352,9 @@
     </header>
 
     <main class="main-watch">
-        <!-- Added video-container ID for proper full-frame fullscreen support -->
         <div class="video-container" id="videoContainer">
-            <video disablepictureinpicture controlslist="noplaybackrate" id="myVideo" oncontextmenu="return false;" preload="auto">
+            <!-- Changed preload="auto" to preload="metadata" for smooth mobile streaming -->
+            <video disablepictureinpicture controlslist="noplaybackrate" id="myVideo" oncontextmenu="return false;" preload="metadata">
                <source id="videoSource" src="" type="video/mp4">
                Your browser does not support the video tag.
             </video>
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mediaId = urlParams.get("videos");
 
     const video = document.getElementById('myVideo');
-    const videoContainer = document.getElementById('videoContainer'); // Target container for fullscreen
+    const videoContainer = document.getElementById('videoContainer');
     const videoSource = document.getElementById('videoSource');
     const episodesSection = document.getElementById('episodesSection');
     const episodesGrid = document.getElementById('episodesGrid');
@@ -696,7 +696,6 @@ document.addEventListener('DOMContentLoaded', () => {
         volumeThumb.style.left = volumePercentage + '%';
     }
 
-    // Fixed Fullscreen logic to target the entire video-container wrapper with custom styles
     fullscreenButton.addEventListener('click', () => {
         if (!document.fullscreenElement) {
             if (videoContainer.requestFullscreen) {
