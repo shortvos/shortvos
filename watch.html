@@ -353,7 +353,8 @@
 
     <main class="main-watch">
         <div class="video-container" id="videoContainer">
-            <video disablepictureinpicture controlslist="noplaybackrate" id="myVideo" oncontextmenu="return false;" preload="metadata">
+            <!-- preload="auto" enabled for smooth background buffering without autoplay -->
+            <video disablepictureinpicture controlslist="noplaybackrate" id="myVideo" oncontextmenu="return false;" preload="auto">
                <source id="videoSource" src="" type="video/mp4">
                Your browser does not support the video tag.
             </video>
@@ -524,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Autoplay disabled: loads video metadata and poster without starting playback automatically
+    // Autoplay disabled: buffers in background with preload="auto" without playing automatically
     async function playVideo(videoUrl, subtitleUrl = null) {
         if (!videoUrl) return;
         currentVideoUrl = videoUrl;
