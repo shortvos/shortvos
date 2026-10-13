@@ -11,234 +11,35 @@
 
 <style>
 *{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#0b0b0b;color:#fff;font-family:Arial,Helvetica,sans-serif;}
+body{min-height:100vh;}
+.header{position:sticky;top:0;z-index:100;background:#111;border-bottom:1px solid #292929;padding:15px 25px;}
+.header-inner{max-width:1400px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.logo{color:#fff;text-decoration:none;font-size:26px;font-weight:900;letter-spacing:1px;white-space:nowrap;}
+.logo span{color:#e50914;}
+.back-btn {background: #e50914;color: #fff;text-decoration: none;padding: 8px 18px;font-size: 14px;font-weight: bold;border-radius: 20px;cursor: pointer;transition: all 0.25s ease;box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);display: inline-flex;align-items: center;gap: 8px;}
+.back-btn:hover {background: #b80710;transform: translateY(-2px);box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5);}
+.view-all-btn {background: #e50914;color: #fff;border: none;padding: 12px 30px;font-size: 15px;font-weight: bold;border-radius: 20px;cursor: pointer;transition: all 0.25s ease;box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);display: inline-flex;align-items: center;gap: 8px;}
+.view-all-btn:hover {background: #b80710;transform: translateY(-2px);box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5);}
+.view-all-btn.hidden {display: none;}
+.main{max-width:1400px;margin:auto;padding:30px 20px 60px;}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.section-title{font-size:25px;margin:0;}
+.section-title:before{content:"";display:inline-block;width:4px;height:24px;background:#e50914;margin-right:10px;vertical-align:-4px;}
+.movie-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:22px;}
+.movie-card-link{text-decoration:none;color:inherit;display:block;}
+.movie-card{min-width:0;cursor:pointer;transition:transform .25s ease;}
+.movie-card:hover{transform:translateY(-5px);}
+.movie-poster{position:relative;width:100%;aspect-ratio:2 / 3;overflow:hidden;background:#141414;border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.movie-poster img{width:100%;height:100%;display:block;object-fit:contain;background:#181818;transition:transform .35s ease;}
+.movie-card:hover .movie-poster img{transform:scale(1.05);}
+.play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.38);opacity:0;transition:opacity .25s ease;}
+.movie-card:hover .play-overlay{opacity:1;}
+.play-overlay i{width:50px;height:50px;display:flex;align-items:center;justify-content:center;padding-left:3px;border-radius:50%;background:#e50914;color:#fff;font-size:20px;}
+.movie-info{padding-top:10px;}
+.movie-title{font-size:15px;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none;}
+.movie-meta{color:#999;font-size:12px;margin-top:6px;display:none;}
 
-html,body{
-    margin:0;
-    padding:0;
-    background:#0b0b0b;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-    min-height:100vh;
-}
-
-/* =========================
-   HEADER
-========================= */
-.header{
-    position:sticky;
-    top:0;
-    z-index:100;
-    background:#111;
-    border-bottom:1px solid #292929;
-    padding:15px 25px;
-}
-
-.header-inner{
-    max-width:1400px;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-}
-
-.logo{
-    color:#fff;
-    text-decoration:none;
-    font-size:26px;
-    font-weight:900;
-    letter-spacing:1px;
-    white-space:nowrap;
-}
-
-.logo span{
-    color:#e50914;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-.back-btn {
-    background: #e50914;
-    color: #fff;
-    text-decoration: none;
-    padding: 8px 18px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.back-btn:hover {
-    background: #b80710;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5);
-}
-
-.view-all-btn {
-    background: #e50914;
-    color: #fff;
-    border: none;
-    padding: 12px 30px;
-    font-size: 15px;
-    font-weight: bold;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.view-all-btn:hover {
-    background: #b80710;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5);
-}
-
-.view-all-btn.hidden {
-    display: none;
-}
-
-/* =========================
-   MAIN
-========================= */
-.main{
-    max-width:1400px;
-    margin:auto;
-    padding:30px 20px 60px;
-}
-
-.section-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:20px;
-}
-
-.section-title{
-    font-size:25px;
-    margin:0;
-}
-
-.section-title:before{
-    content:"";
-    display:inline-block;
-    width:4px;
-    height:24px;
-    background:#e50914;
-    margin-right:10px;
-    vertical-align:-4px;
-}
-
-/* =========================
-   MOVIE GRID (Portrait & 2-Col Mobile)
-========================= */
-.movie-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-    gap:22px;
-}
-
-.movie-card-link{
-    text-decoration:none;
-    color:inherit;
-    display:block;
-}
-
-.movie-card{
-    min-width:0;
-    cursor:pointer;
-    transition:transform .25s ease;
-}
-
-.movie-card:hover{
-    transform:translateY(-5px);
-}
-
-.movie-poster{
-    position:relative;
-    width:100%;
-    aspect-ratio:2 / 3; /* Portrait Ratio */
-    overflow:hidden;
-    background:#141414;
-    border-radius:8px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.movie-poster img{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:contain;
-    background:#181818;
-    transition:transform .35s ease;
-}
-
-.movie-card:hover .movie-poster img{
-    transform:scale(1.05);
-}
-
-.play-overlay{
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:rgba(0,0,0,.38);
-    opacity:0;
-    transition:opacity .25s ease;
-}
-
-.movie-card:hover .play-overlay{
-    opacity:1;
-}
-
-.play-overlay i{
-    width:50px;
-    height:50px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding-left:3px;
-    border-radius:50%;
-    background:#e50914;
-    color:#fff;
-    font-size:20px;
-}
-
-.movie-info{
-    padding-top:10px;
-}
-
-.movie-title{
-    font-size:15px;
-    font-weight:bold;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    display: none;
-}
-
-.movie-meta{
-    color:#999;
-    font-size:12px;
-    margin-top:6px;
-    display: none;
-}
-
-/* Mobile Optimization: Force exactly 2 columns in a row */
 @media (max-width: 768px) {
     .movie-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -252,29 +53,21 @@ body{
 </head>
 
 <body>
-
 <header class="header">
     <div class="header-inner">
-        <a href="index.html" class="logo">
-            MOVI<span>DOZ</span>
-        </a>
+        <a href="index.html" class="logo">MOVI<span>DOZ</span></a>
         <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to HOME</a>
     </div>
 </header>
 
 <main class="main">
-    <div class="section-header">
-        <h1 class="section-title">ALL MOVIES & SERIES</h1>
-    </div>
-
+    <div class="section-header"><h1 class="section-title">ALL MOVIES & SERIES</h1></div>
     <div class="movie-grid" id="allMovieGrid"></div>
-
-    <div class="load-more-container" style="text-align: center;">
+    <div class="load-more-container" style="text-align: center; margin-top:30px;">
         <button id="loadMoreBtn" class="view-all-btn">Load More</button>
     </div>
 </main>
 
-<!-- Load external movies, series, ads, and footer JS files -->
 <script src="movies.js"></script>
 <script src="series.js"></script>
 <script src="ads.js"></script>
@@ -288,12 +81,29 @@ const batchSize = 24;
 let visibleCount = batchSize;
 let randomizedList = [];
 
-// Combine Movies and Series safely
 const allMovies = (typeof movies !== 'undefined' ? movies : []);
 const allSeries = (typeof series !== 'undefined' ? series : []);
-const combinedMedia = [...allMovies, ...allSeries];
 
-/* Fisher-Yates Array Shuffle */
+/* Automatically generate unique IDs from titles */
+function normalizeMedia(array, prefix = 'media') {
+    const seenIds = new Set();
+    return (array || []).map((item, idx) => {
+        let baseId = item.id ? String(item.id).trim() : 
+            (item.title ? item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : `${prefix}-${idx}`);
+        
+        let uniqueId = baseId;
+        let counter = 1;
+        while (seenIds.has(uniqueId)) {
+            uniqueId = `${baseId}-${counter}`;
+            counter++;
+        }
+        seenIds.add(uniqueId);
+        return { ...item, id: uniqueId };
+    });
+}
+
+const combinedMedia = [...normalizeMedia(allMovies, 'movie'), ...normalizeMedia(allSeries, 'series')];
+
 function shuffleArray(array) {
     const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -311,14 +121,11 @@ function createMovieCard(item) {
     const link = document.createElement("a");
     link.href = itemUrl;
     link.className = "movie-card-link";
-
     link.innerHTML = `
         <div class="movie-card">
             <div class="movie-poster">
                 <img src="${escapeHtml(thumbnailSrc)}" alt="${escapeHtml(item.title)}" loading="lazy">
-                <div class="play-overlay">
-                    <i class="fa-solid fa-play"></i>
-                </div>
+                <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
             </div>
             <div class="movie-info">
                 <div class="movie-title">${escapeHtml(item.title)}</div>
@@ -334,18 +141,11 @@ function createMovieCard(item) {
 }
 
 function escapeHtml(value) {
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    return String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
 
 function renderAllMovies() {
     allMovieGrid.innerHTML = "";
-    
-    // Shuffle once when entering the page
     if (!randomizedList.length) {
         randomizedList = shuffleArray(combinedMedia);
     }
@@ -367,9 +167,7 @@ loadMoreBtn.addEventListener("click", () => {
     renderAllMovies();
 });
 
-// Initial render
 renderAllMovies();
 </script>
-
 </body>
 </html>

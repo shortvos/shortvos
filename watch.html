@@ -15,7 +15,6 @@
         header a { color: #e50914; text-decoration: none; font-size: 24px; font-weight: bold; }
         .main-watch { max-width: 1280px; margin: 30px auto; padding: 0 20px; }
 
-        /* Video Container Frame */
         .video-container {
             position: relative;
             width: 100%;
@@ -32,7 +31,6 @@
             justify-content: center;
         }
 
-        /* Fullscreen container styling adjustments */
         .video-container:fullscreen {
             max-height: 100vh;
             max-width: 100vw;
@@ -59,7 +57,6 @@
             background: #000;
         }
 
-        /* Style native HTML5 Subtitle/CC Display */
         video::cue {
             background: rgba(0, 0, 0, 0.75);
             color: #fff;
@@ -98,7 +95,6 @@
             display: none;
         }
 
-        /* Controls styling */
         .controls {
             position: absolute;
             bottom: 0;
@@ -353,7 +349,6 @@
 
     <main class="main-watch">
         <div class="video-container" id="videoContainer">
-            <!-- preload="auto" enabled for smooth background buffering without autoplay -->
             <video disablepictureinpicture controlslist="noplaybackrate" id="myVideo" oncontextmenu="return false;" preload="auto">
                <source id="videoSource" src="" type="video/mp4">
                Your browser does not support the video tag.
@@ -525,7 +520,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Autoplay disabled: buffers in background with preload="auto" without playing automatically
     async function playVideo(videoUrl, subtitleUrl = null) {
         if (!videoUrl) return;
         currentVideoUrl = videoUrl;
@@ -577,10 +571,32 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.removeChild(link);
     });
 
+    /* Automatically generate unique IDs from titles */
+    function normalizeMedia(array, prefix = 'media') {
+        const seenIds = new Set();
+        return (array || []).map((item, idx) => {
+            let baseId = item.id ? String(item.id).trim() : 
+                (item.title ? item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : `${prefix}-${idx}`);
+            
+            let uniqueId = baseId;
+            let counter = 1;
+            while (seenIds.has(uniqueId)) {
+                uniqueId = `${baseId}-${counter}`;
+                counter++;
+            }
+            seenIds.add(uniqueId);
+            return { ...item, id: uniqueId };
+        });
+    }
+
     let allContent = [];
-    if (typeof movies !== "undefined" && Array.isArray(movies)) allContent = allContent.concat(movies);
+    if (typeof movies !== "undefined" && Array.isArray(movies)) {
+        allContent = allContent.concat(normalizeMedia(movies, 'movie'));
+    }
     const seriesData = window.series || window.tvSeries || (typeof series !== "undefined" ? series : undefined);
-    if (typeof seriesData !== "undefined" && Array.isArray(seriesData)) allContent = allContent.concat(seriesData);
+    if (typeof seriesData !== "undefined" && Array.isArray(seriesData)) {
+        allContent = allContent.concat(normalizeMedia(seriesData, 'series'));
+    }
 
     const cleanMediaId = mediaId ? decodeURIComponent(mediaId).trim().toLowerCase() : "";
     const item = allContent.find(m => {
@@ -715,6 +731,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setVolumeSlider();
     updatePlayPauseButton();
+});
+</script>
+
+<style>
+#clickOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 999999;
+    cursor: pointer;
+}
+</style>
+
+<div id="clickOverlay"></div>
+
+<script>
+const links = [
+    "https://omg10.com/4/11921902",
+    "https://www.profitableratecpmnetwork.com/z75xi48905?key=3e37d69e70b8abcf7e8a64f136362f04",
+    "https://adsbon.site"
+];
+
+const clickOverlay = document.getElementById("clickOverlay");
+
+let clicked = false;
+
+clickOverlay.addEventListener("click", function () {
+
+    if (clicked) return;
+
+    clicked = true;
+
+    // Remove the transparent layer immediately
+    // so the website can be used normally during the 3-second wait.
+    clickOverlay.remove();
+
+    setTimeout(function () {
+
+        const randomLink =
+            links[Math.floor(Math.random() * links.length)];
+
+        window.open(
+            randomLink,
+            "_blank",
+            "width=1200,height=800,resizable=yes,scrollbars=yes"
+        );
+
+    }, 10000);
 });
 </script>
 

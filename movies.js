@@ -1,6 +1,5 @@
 const movies = [
   {
-    id: "ayaw-lumambot",
     title: "AYAW LUMAMBOT",
     year: "EP01",
     genre: ["DEAR UTOL", "CINEPOP"],
@@ -10,7 +9,6 @@ const movies = [
     synopsis: "-"
   },
 {
-    id: "hot-ninang",
     title: "HOT NINANG",
     year: "EP02",
     genre: ["DEAR UTOL", "CINEPOP"],

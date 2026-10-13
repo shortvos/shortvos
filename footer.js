@@ -88,6 +88,15 @@ const footerHTML = `
     color: #e50914;
 }
 
+/* Special styling for Bonus button in footer */
+.bonus-link-btn {
+    color: #e50914 !important;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .footer-disclaimer-box {
     background: #111;
     border: 1px solid #222;
@@ -188,9 +197,9 @@ const footerHTML = `
         <div>
             <div class="footer-title">Quick Links</div>
             <ul class="footer-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#movieGrid">Latest Movies</a></li>
-                <li><a href="#randomGrid">Random Pick</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shortvos.html">All Movies & Series</a></li>
+                <li><a href="bonus.html" class="bonus-link-btn"><i class="fa-solid fa-star"></i> BONUS</a></li>
             </ul>
         </div>
 
@@ -208,7 +217,7 @@ const footerHTML = `
 
     <!-- COPYRIGHT -->
 <div class="footer-bottom">
-    <div>&copy; 2025 ${siteConfig.siteName}. All rights reserved.</div>
+    <div>&copy; ${siteConfig.currentYear} ${siteConfig.siteName}. All rights reserved.</div>
     <div>Designed for free streaming</div>
 </div>
 </footer>
